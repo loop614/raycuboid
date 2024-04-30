@@ -2,7 +2,8 @@
 #include "css.hpp"
 #include <cstring>
 
-Button::Button(float x, float y, const char* text) : x{x}, y{y}, text{text} {
+Button::Button(float x, float y, const char *text) : x{x}, y{y}, text{text}
+{
     this->h = BUTTON_HEIGHT;
     this->w = strlen(text) * BUTTON_WIDTH_PER_LETTER;
     this->y1 = y + BUTTON_HEIGHT;
@@ -10,11 +11,13 @@ Button::Button(float x, float y, const char* text) : x{x}, y{y}, text{text} {
     this->font = LoadFontEx("font/monogram.ttf", 32, 0, 250);
 }
 
-Button::~Button() {
+Button::~Button()
+{
     UnloadFont(this->font);
 }
 
-void Button::Draw() {
+void Button::Draw()
+{
     DrawRectangle(this->x, this->y, this->w, this->h, BLACK);
-    DrawTextEx(this->font, this->text, {11, 11}, FONT_SIZE, FONT_SPACING, WHITE);
+    DrawTextEx(this->font, this->text, {this->x, this->y}, FONT_SIZE, FONT_SPACING, GREEN);
 }

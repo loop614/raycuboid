@@ -2,7 +2,6 @@
 #include <raymath.h>
 #include <iostream>
 
-
 Quad::Quad(Vector3 a, Vector3 b, Vector3 c, Vector3 d, bool calculate)
 {
     this->a = {a.x, a.y, a.z};
@@ -12,7 +11,8 @@ Quad::Quad(Vector3 a, Vector3 b, Vector3 c, Vector3 d, bool calculate)
     this->tri_abd = new Triangle();
     this->tri_bcd = new Triangle();
 
-    if (calculate) {
+    if (calculate)
+    {
         this->tri_abd->Init(this->a, this->b, this->d);
         this->tri_bcd->Init(this->b, this->c, this->d);
         this->CalculateIsRectIsSquare();
@@ -21,7 +21,8 @@ Quad::Quad(Vector3 a, Vector3 b, Vector3 c, Vector3 d, bool calculate)
     }
 }
 
-Quad::~Quad() {
+Quad::~Quad()
+{
     delete this->tri_abd;
     delete this->tri_bcd;
 }
@@ -64,12 +65,6 @@ void Quad::CalculateIsTilted()
         Vector3Angle({0, 1, 0}, Vector3Subtract(this->c, this->b)) == 0 ||
         Vector3Angle({0, 1, 0}, Vector3Subtract(this->d, this->c)) == 0 ||
         Vector3Angle({0, 1, 0}, Vector3Subtract(this->d, this->a)) == 0);
-
-    if (this->is_tilted) {
-        std::cout << "it is tilted" << std::endl;
-    } else {
-        std::cout << "it is not tilted" << std::endl;
-    }
 }
 
 void Quad::Draw()
@@ -91,5 +86,4 @@ void Quad::CalculateCenter(Vector3 p1, Vector3 p2)
         (p1.x + p2.x) / 2,
         (p1.y + p2.y) / 2,
         (p1.z + p2.z) / 2};
-    std::cout << "found center at " << this->center.x << " - " << this->center.y << " - " << this->center.z << std::endl;
 }
