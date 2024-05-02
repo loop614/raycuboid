@@ -30,13 +30,14 @@ int main()
 
     InitWindow(screenWidth, screenHeight, "RAYLIB!");
     SetTargetFPS(30);
-    Camera3D camera3D = {{0, 10, 10}, {0, 0, 0}, {0, 1, 0}, 45, CAMERA_PERSPECTIVE};
-    char buffer[30];
+    Camera3D camera3D = {{2, 2, 10}, {2, 2, 0}, {0, 1, 0}, 45, CAMERA_PERSPECTIVE};
+    char bufferCamera[30];
+    char bufferTarget[30];
     size_t index = 0;
     Vector3 point = Vector3 {2, 2, 0.5};
     bool isPointInside = false;
     Color pointColor = GREEN;
-    Button nextButton = Button(20, 60, "NEXT");
+    Button nextButton = Button(20, 70, "NEXT");
     Vector2 mouseLeft = {-10.0f,-10.0f};
 
     while (!WindowShouldClose())
@@ -56,29 +57,51 @@ int main()
             }
         }
 
-        if (IsKeyPressed(KEY_A) && camera3D.position.x > 0)
+        if (IsKeyPressed(KEY_UP)) {
+            camera3D.position = tiltVec3ByDeg(camera3D.position, 10, axisx);
+        }
+
+        if (IsKeyPressed(KEY_DOWN)) {
+            camera3D.position = tiltVec3ByDeg(camera3D.position, -10, axisx);
+        }
+
+        if (IsKeyPressed(KEY_LEFT)) {
+            camera3D.position = tiltVec3ByDeg(camera3D.position, 10, axisy);
+        }
+
+        if (IsKeyPressed(KEY_RIGHT)) {
+            camera3D.position = tiltVec3ByDeg(camera3D.position, -10, axisy);
+        }
+
+        if (IsKeyPressed(KEY_A) && camera3D.position.x > -screenWidth)
         {
             camera3D.position.x -= 2;
+            camera3D.target.x -= 2;
         }
-        if (IsKeyPressed(KEY_S) && camera3D.position.y > 0)
+        if (IsKeyPressed(KEY_S) && camera3D.position.y > -screenHeight)
         {
             camera3D.position.y -= 2;
+            camera3D.target.y -= 2;
         }
         if (IsKeyPressed(KEY_D) && camera3D.position.x < screenWidth)
         {
             camera3D.position.x += 2;
+            camera3D.target.x += 2;
         }
-        if (IsKeyPressed(KEY_W) && camera3D.position.y < screenWidth)
+        if (IsKeyPressed(KEY_W) && camera3D.position.y < screenHeight)
         {
             camera3D.position.y += 2;
+            camera3D.target.y += 2;
         }
         if (IsKeyPressed(KEY_Q) && camera3D.position.z < screenDepth)
         {
             camera3D.position.z += 2;
+            camera3D.target.z += 12;
         }
-        if (IsKeyPressed(KEY_E) && camera3D.position.z > 0)
+        if (IsKeyPressed(KEY_E) && camera3D.position.z > -screenDepth)
         {
             camera3D.position.z -= 2;
+            camera3D.target.z -= 12;
         }
 
         if (IsKeyPressed(KEY_J) && point.x > 0)
@@ -116,10 +139,12 @@ int main()
         DrawSphere(point, 0.1, pointColor);
         EndMode3D();
 
-        std::sprintf(buffer, "Camera at %.1f, %.1f, %.1f", camera3D.position.x, camera3D.position.y, camera3D.position.z);
-        DrawText(buffer, 10, 40, 10, DARKGRAY);
+        std::sprintf(bufferCamera, "Camera at %.1f, %.1f, %.1f", camera3D.position.x, camera3D.position.y, camera3D.position.z);
+        std::sprintf(bufferTarget, "Target at %.1f, %.1f, %.1f", camera3D.target.x, camera3D.target.y, camera3D.target.z);
+        DrawText(bufferCamera, 10, 40, 10, DARKGRAY);
+        DrawText(bufferTarget, 10, 55, 10, DARKGRAY);
         nextButton.Draw();
-        DrawFPS(10, 10);
+        DrawFPS(20, 10);
         EndDrawing();
     }
 
