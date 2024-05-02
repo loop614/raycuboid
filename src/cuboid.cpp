@@ -18,7 +18,6 @@ Cuboid::Cuboid(
     this->calculate_is_cube();
 }
 
-
 Cuboid::~Cuboid()
 {
     delete this->quadhorz1;

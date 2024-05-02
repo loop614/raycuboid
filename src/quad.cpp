@@ -30,23 +30,23 @@ Quad::~Quad()
 void Quad::CalculateIsRectIsSquare()
 {
     this->is_rect = false;
-    if (this->tri_abd->alpha.is90())
+    if (this->tri_abd->alpha->is90())
     {
         this->diaginal_len = this->tri_abd->sidea;
         this->is_rect = true;
-        this->is_square = this->tri_abd->beta.is45() and this->tri_abd->gamma.is45();
+        this->is_square = this->tri_abd->beta->is45() and this->tri_abd->gamma->is45();
     }
-    else if (this->tri_abd->beta.is90())
+    else if (this->tri_abd->beta->is90())
     {
         this->diaginal_len = this->tri_abd->sideb;
         this->is_rect = true;
-        this->is_square = this->tri_abd->alpha.is45() and this->tri_abd->gamma.is45();
+        this->is_square = this->tri_abd->alpha->is45() and this->tri_abd->gamma->is45();
     }
-    else if (this->tri_abd->gamma.is90())
+    else if (this->tri_abd->gamma->is90())
     {
         this->diaginal_len = this->tri_abd->sidec;
         this->is_rect = true;
-        this->is_square = this->tri_abd->alpha.is45() and this->tri_abd->beta.is45();
+        this->is_square = this->tri_abd->alpha->is45() and this->tri_abd->beta->is45();
     }
 }
 

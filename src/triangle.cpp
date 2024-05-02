@@ -25,9 +25,9 @@ void Triangle::CalculateSides()
 
 void Triangle::CalculateAngles()
 {
-    this->alpha.val = (180.0 / PI) * acos(
-        (this->sideb * this->sideb + this->sidec * this->sidec - this->sidea * this->sidea) / (2 * this->sideb * this->sidec));
-    this->gamma.val = (180.0 / PI) * acos(
-        (this->sidea * this->sidea + this->sideb * this->sideb - this->sidec * this->sidec) / (2 * this->sidea * this->sideb));
-    this->beta.val = 180.0 - this->alpha.val - this->gamma.val;
+    this->alpha = new Angle((180.0 / PI) * acos(
+        (this->sideb * this->sideb + this->sidec * this->sidec - this->sidea * this->sidea) / (2 * this->sideb * this->sidec)));
+    this->gamma = new Angle((180.0 / PI) * acos(
+        (this->sidea * this->sidea + this->sideb * this->sideb - this->sidec * this->sidec) / (2 * this->sidea * this->sideb)));
+    this->beta = new Angle(180.0 - this->alpha->val - this->gamma->val);
 }

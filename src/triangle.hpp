@@ -9,9 +9,9 @@ class Triangle {
         Vector3 a;
         Vector3 b;
         Vector3 c;
-        Angle alpha;
-        Angle beta;
-        Angle gamma;
+        Angle* alpha;
+        Angle* beta;
+        Angle* gamma;
         float sidea;
         float sideb;
         float sidec;

@@ -4,6 +4,7 @@
 #include <string>
 #include "cuboid.hpp"
 #include "button.hpp"
+#include "util.hpp"
 
 int main()
 {
@@ -12,33 +13,26 @@ int main()
     const int screenDepth = 600;
 
     // TODO: make examples of more cuboids
-    // TODO: [1]    9534 segmentation fault  ./raycuboid
-    std::array<std::array<Vector3, 8>, 2> cuboidExamples = {{
-        {
+    std::array<Cuboid, 3> cuboidExamples = {
+        Cuboid {
             Vector3{1, 1, 1}, Vector3{3, 1, 1}, Vector3{3, 3, 1}, Vector3{1, 3, 1},
             Vector3{1, 1, 0}, Vector3{3, 1, 0}, Vector3{3, 3, 0}, Vector3{1, 3, 0}
         },
-        {
+        Cuboid {
             Vector3{1, 1, 2}, Vector3{3, 1, 2}, Vector3{3, 3, 2}, Vector3{1, 3, 2},
             Vector3{1, 1, 0}, Vector3{3, 1, 0}, Vector3{3, 3, 0}, Vector3{1, 3, 0}
         },
-    }};
+        Cuboid {
+            tiltVec3ByDeg(Vector3{1, 1, 2}, 20), tiltVec3ByDeg(Vector3{3, 1, 2}, 20), tiltVec3ByDeg(Vector3{3, 3, 2}, 20), tiltVec3ByDeg(Vector3{1, 3, 2}, 20),
+            tiltVec3ByDeg(Vector3{1, 1, 0}, 20), tiltVec3ByDeg(Vector3{3, 1, 0}, 20), tiltVec3ByDeg(Vector3{3, 3, 0}, 20), tiltVec3ByDeg(Vector3{1, 3, 0}, 20)
+        }
+    };
 
     InitWindow(screenWidth, screenHeight, "RAYLIB!");
-    SetTargetFPS(60);
+    SetTargetFPS(30);
     Camera3D camera3D = {{0, 10, 10}, {0, 0, 0}, {0, 1, 0}, 45, CAMERA_PERSPECTIVE};
     char buffer[30];
     size_t index = 0;
-    Cuboid* cb = new Cuboid(
-        cuboidExamples[index][0],
-        cuboidExamples[index][1],
-        cuboidExamples[index][2],
-        cuboidExamples[index][3],
-        cuboidExamples[index][4],
-        cuboidExamples[index][5],
-        cuboidExamples[index][6],
-        cuboidExamples[index][7]
-    );
     Vector3 point = Vector3 {2, 2, 0.5};
     bool isPointInside = false;
     Color pointColor = GREEN;
@@ -58,17 +52,7 @@ int main()
                 index++;
                 if (index == cuboidExamples.size()) {
                     index = 0;
-                }
-                cb = new Cuboid(
-                    cuboidExamples[index][0],
-                    cuboidExamples[index][1],
-                    cuboidExamples[index][2],
-                    cuboidExamples[index][3],
-                    cuboidExamples[index][4],
-                    cuboidExamples[index][5],
-                    cuboidExamples[index][6],
-                    cuboidExamples[index][7]
-                );
+                };
             }
         }
 
@@ -121,16 +105,10 @@ int main()
         {
             point.z -= 0.5;
         }
-        if (IsKeyPressed(KEY_ESCAPE))
-        {
-            EndDrawing();
-            EndMode3D();
-            break;
-        }
 
-        cb->Draw();
+        cuboidExamples[index].Draw();
         DrawGrid(10, 1.0f);
-        isPointInside = cb->is_point_inside(point);
+        isPointInside = cuboidExamples[index].is_point_inside(point);
         pointColor = GREEN;
         if (isPointInside) {
             pointColor = BLACK;
@@ -145,7 +123,6 @@ int main()
         EndDrawing();
     }
 
-    delete cb;
     CloseWindow();
     return 0;
 }

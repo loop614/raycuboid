@@ -13,7 +13,6 @@ Button::Button(float x, float y, const char *text) : x{x}, y{y}, text{text}
 
 Button::~Button()
 {
-    UnloadFont(this->font);
 }
 
 void Button::Draw()
