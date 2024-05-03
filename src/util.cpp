@@ -2,31 +2,38 @@
 #include <math.h>
 #include <map>
 #include <array>
+#include <cassert>
 
 Vector3 tiltVec3ByDeg(Vector3 vec, Angle angle, axis ax)
 {
     float pi180 = PI / 180;
+    std::array<Vector3, 3> rotMat = {};
 
-    std::map<axis, std::array<Vector3, 3>> mapAxis;
-    mapAxis[axisx] = {{{1, 0, 0},
+    switch (ax)
+    {
+    case axisx:
+        rotMat = {{{1, 0, 0},
                    {0, cos(angle.val * pi180), -sin(angle.val * pi180)},
                    {0, sin(angle.val * pi180), cos(angle.val * pi180)}}};
-
-    mapAxis[axisy] = {{{cos(angle.val * pi180), 0, sin(angle.val * pi180)},
+        break;
+    case axisy:
+        rotMat = {{{cos(angle.val * pi180), 0, sin(angle.val * pi180)},
                    {0, 1, 0},
                    {-sin(angle.val * pi180), 0, cos(angle.val * pi180)}}};
-
-    mapAxis[axisz] = {{{cos(angle.val * pi180), -sin(angle.val * pi180), 0},
+        break;
+    case axisz:
+        rotMat = {{{cos(angle.val * pi180), -sin(angle.val * pi180), 0},
                    {sin(angle.val * pi180), cos(angle.val * pi180), 0},
                    {0, 0, 1}}};
-
-    Vector3 mat1 = mapAxis[ax][0];
-    Vector3 mat2 = mapAxis[ax][1];
-    Vector3 mat3 = mapAxis[ax][2];
+        break;
+    default:
+        assert(false && "unreachable");
+        break;
+    }
 
     return Vector3{
-        mat1.x * vec.x + mat1.y * vec.y + mat1.z * vec.z,
-        mat2.x * vec.x + mat2.y * vec.y + mat2.z * vec.z,
-        mat3.x * vec.x + mat3.y * vec.y + mat3.z * vec.z,
+        rotMat[0].x * vec.x + rotMat[0].y * vec.y + rotMat[0].z * vec.z,
+        rotMat[1].x * vec.x + rotMat[1].y * vec.y + rotMat[1].z * vec.z,
+        rotMat[2].x * vec.x + rotMat[2].y * vec.y + rotMat[2].z * vec.z,
     };
 }

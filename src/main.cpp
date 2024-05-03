@@ -96,12 +96,12 @@ int main()
         if (IsKeyPressed(KEY_Q) && camera3D.position.z < screenDepth)
         {
             camera3D.position.z += 2;
-            camera3D.target.z += 12;
+            camera3D.target.z += 2;
         }
         if (IsKeyPressed(KEY_E) && camera3D.position.z > -screenDepth)
         {
             camera3D.position.z -= 2;
-            camera3D.target.z -= 12;
+            camera3D.target.z -= 2;
         }
 
         if (IsKeyPressed(KEY_J) && point.x > 0)
