@@ -1,4 +1,5 @@
 ## Description
+- Visit [github page](https://loop614.github.io/raycuboid/) to see how it looks
 - Just like [rayquad](https://github.com/loop614/rayquad) but in 3d
 - Check if the Vector3 is in the [cuboid](https://en.wikipedia.org/wiki/Cuboid)
 - Click button next for the next cuboid example
@@ -12,6 +13,7 @@
 - make demo
 ```
 
-<div align="left"><img src="https://raw.githubusercontent.com/loop614/raycuboid/main/inside.png" width=320 height=180 alt="inside"/></div>
-
-<div align="left"><img src="https://raw.githubusercontent.com/loop614/raycuboid/main/outside.png" width=320 height=180 alt="outside"/></div>
+- [go here](https://github.com/raysan5/raylib/wiki/Working-for-Web-(HTML5)) to generate webassembly, html and js
+```console
+- make gamehtml
+```

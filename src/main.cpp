@@ -8,8 +8,8 @@
 
 int main()
 {
-    const int screenWidth = 800;
-    const int screenHeight = 600;
+    const int screenWidth = 1600;
+    const int screenHeight = 800;
     const int screenDepth = 600;
 
     // TODO: make examples of more cuboids
@@ -29,7 +29,7 @@ int main()
     };
 
     InitWindow(screenWidth, screenHeight, "RAYLIB!");
-    SetTargetFPS(30);
+    SetTargetFPS(60);
     Camera3D camera3D = {{2, 2, 10}, {2, 2, 0}, {0, 1, 0}, 45, CAMERA_PERSPECTIVE};
     char bufferCamera[30];
     char bufferTarget[30];
@@ -104,11 +104,11 @@ int main()
             camera3D.target.z -= 2;
         }
 
-        if (IsKeyPressed(KEY_J) && point.x > 0)
+        if (IsKeyPressed(KEY_J) && point.x > -screenWidth)
         {
             point.x -= 0.5;
         }
-        if (IsKeyPressed(KEY_K) && point.y > 0)
+        if (IsKeyPressed(KEY_K) && point.y > -screenHeight)
         {
             point.y -= 0.5;
         }
@@ -124,7 +124,7 @@ int main()
         {
             point.z += 0.5;
         }
-        if (IsKeyPressed(KEY_O) && point.z > 0)
+        if (IsKeyPressed(KEY_O) && point.z > -screenDepth)
         {
             point.z -= 0.5;
         }
